@@ -3,29 +3,45 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
+	Handlers "github.com/vikkoro/gocardano-api/handler"
 	"log"
 	"net/http"
 	"os"
-
-	"github.com/gorilla/mux"
-	Handlers2 "github.com/vikkoro/gocardano-api/handler2"
 )
 
 func main() {
 
-	file, _ := os.Open("conf.json")
-	defer file.Close()
-	decoder := json.NewDecoder(file)
-	configuration := Handlers2.Configuration{}
-	err := decoder.Decode(&configuration)
-	if err != nil {
-		fmt.Println("error:", err)
-	}
+	configuration := GetConfig("conf.json")
 
 	// Create a mux router
 	r := mux.NewRouter()
 
 	// We will define a single endpoint
-	r.Handle("/api/v1/cardano/{module}", Handlers2.ClientHandler{configuration})
+	r.Handle("/api/v1/cardano/{module}", Handlers.ClientHandler{Configuration: configuration})
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./assets/")))
+
+	// Listen to port 8080 for incoming REST calls
 	log.Fatal(http.ListenAndServe(":8080", r))
+}
+
+func GetConfig(path string) Handlers.Configuration {
+	file, err := os.Open(path)
+
+	defer func() {
+		cerr := file.Close()
+		if err == nil {
+			err = cerr
+		}
+	}()
+
+	decoder := json.NewDecoder(file)
+	configuration := Handlers.Configuration{}
+
+	err = decoder.Decode(&configuration)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+
+	return configuration
 }

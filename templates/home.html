@@ -3,13 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Upload SCV File</title>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/3.3.92/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/css/tower-file-input.css">
 </head>
 <body>
+<div class="container">
+    <div class="content">
+        <h1>Upload SCV File</h1>
+        <div class="tower-file">
+            <input id="input-file" type="file" name="csvFile"/>
+            <label for="input-file" class="tower-file-button"><span class="mdi mdi-upload"></span>Select a File</label>
+            <button class="btn-custom" name="submit"></button>
+        </div>
+    </div>
+    <div class="content">
+        <pre><span class="content-data"></span></pre>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/tower-file-input.js"></script>
+<script>
+    $(function () {
+        let file = null
+        const p = document.createElement("p")
 
-Upload SCV File
-<form method="post" action="http://localhost:8080/api/v1/cardano/upload" enctype="multipart/form-data">
-    <input type="file" name="csvFile"/>
-    <button type="submit" name="submit">Upload</button>
-</form>
+        $('#input-file').fileInput({
+            iconClass: 'mdi mdi-fw mdi-upload'
+        });
+
+        $('#input-file').change(function (event) {
+            file = event.target.files[0]
+            console.log('FILE   : ')
+            console.log(file);
+        })
+
+
+        $('.btn-custom').click(function () {
+            if (file) {
+                let fd = new FormData();
+                fd.append('csvFile', file)
+
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/cardano/upload',
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log('UPLOADED  : ')
+                        p.textContent = JSON.stringify(response, null, 4)
+                        document.querySelector('.content-data').append(p)
+                    }, error: function (error) {
+                        console.log(error.getResponseHeader())
+                        alert(error)
+                    }
+                })
+            }
+
+        })
+    });
+</script>
 </body>
 </html>

@@ -15,10 +15,7 @@ func GetList(url string) []WalletData {
 	}
 
 	defer func() {
-		err2 := response.Body.Close()
-		if err == nil {
-			err = err2
-		}
+		_ = response.Body.Close()
 	}()
 
 	//We Read the response body on the line below.
@@ -44,10 +41,7 @@ func GetWallet(url string, walletId string) WalletData {
 	}
 
 	defer func() {
-		err2 := response.Body.Close()
-		if err == nil {
-			err = err2
-		}
+		_ = response.Body.Close()
 	}()
 
 	//We Read the response body on the line below.
@@ -80,10 +74,7 @@ func GetTransactionFee(url string, walletId string, transactions TransactionsDat
 	}
 
 	defer func() {
-		err2 := response.Body.Close()
-		if err == nil {
-			err = err2
-		}
+		_ = response.Body.Close()
 	}()
 
 	body, err := ioutil.ReadAll(response.Body)
@@ -115,10 +106,7 @@ func SendTransaction(url string, walletId string, transactions TransactionsData)
 	}
 
 	defer func() {
-		err2 := response.Body.Close()
-		if err == nil {
-			err = err2
-		}
+		_ = response.Body.Close()
 	}()
 
 	body, err := ioutil.ReadAll(response.Body)

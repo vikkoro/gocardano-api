@@ -10,34 +10,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d53d995-415f-4929-8d45-fbd5b30a47eb" name="Default Changelist" comment="Removed temp files">
-      <change afterPath="$PROJECT_DIR$/assets/css/tower-file-input.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/image/logos.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/tower-file-input.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/mainnet-alonzo-genesis.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/mainnet-byron-genesis.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/mainnet-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/mainnet-db-sync-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/mainnet-shelley-genesis.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/mainnet-topology.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/rest-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/testnet-alonzo-genesis.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/testnet-byron-genesis.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/testnet-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/testnet-db-sync-config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/testnet-shelley-genesis.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/testnet-topology.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/test_small_2.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallets_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+    <list default="true" id="6d53d995-415f-4929-8d45-fbd5b30a47eb" name="Default Changelist" comment="Implemented main logic, added necessary configs">
       <change beforePath="$PROJECT_DIR$/handler/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/models.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallets/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallets_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,12 +162,17 @@
     <MESSAGE value="added handler module" />
     <MESSAGE value="Working REST API, needs tuning and test coverage" />
     <MESSAGE value="Removed temp files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed temp files" />
+    <MESSAGE value="Implemented main logic, added necessary configs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented main logic, added necessary configs" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
+    <state x="471" y="0" key="#Editor_|_Color_Scheme_|_General" timestamp="1637009213258">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="471" y="0" key="#Editor_|_Color_Scheme_|_General/0.0.1536.824@0.0.1536.824" timestamp="1637009213258" />
     <state x="158" y="134" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1636544189959">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -203,46 +185,46 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="600" y="214" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1636718497879" />
-    <state width="946" height="217" key="GridCell.Tab.0.bottom" timestamp="1637008335414">
+    <state width="945" height="217" key="GridCell.Tab.0.bottom" timestamp="1637009167477">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1637008335414" />
-    <state width="946" height="217" key="GridCell.Tab.0.center" timestamp="1637008335414">
+    <state width="945" height="217" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1637009167477" />
+    <state width="945" height="217" key="GridCell.Tab.0.center" timestamp="1637009167477">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1637008335414" />
-    <state width="946" height="217" key="GridCell.Tab.0.left" timestamp="1637008335414">
+    <state width="945" height="217" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1637009167477" />
+    <state width="945" height="217" key="GridCell.Tab.0.left" timestamp="1637009167477">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1637008335414" />
-    <state width="946" height="217" key="GridCell.Tab.0.right" timestamp="1637008335414">
+    <state width="945" height="217" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1637009167477" />
+    <state width="945" height="217" key="GridCell.Tab.0.right" timestamp="1637009167477">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1637008335414" />
-    <state width="946" height="217" key="GridCell.Tab.1.bottom" timestamp="1637008327468">
+    <state width="945" height="217" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1637009167477" />
+    <state width="946" height="217" key="GridCell.Tab.1.bottom" timestamp="1637009167306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1637008327468" />
-    <state width="946" height="217" key="GridCell.Tab.1.center" timestamp="1637008327468">
+    <state width="946" height="217" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1637009167306" />
+    <state width="946" height="217" key="GridCell.Tab.1.center" timestamp="1637009167306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1637008327468" />
-    <state width="946" height="217" key="GridCell.Tab.1.left" timestamp="1637008327468">
+    <state width="946" height="217" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1637009167306" />
+    <state width="946" height="217" key="GridCell.Tab.1.left" timestamp="1637009167306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1637008327468" />
-    <state width="946" height="217" key="GridCell.Tab.1.right" timestamp="1637008327468">
+    <state width="946" height="217" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1637009167306" />
+    <state width="946" height="217" key="GridCell.Tab.1.right" timestamp="1637009167306">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="946" height="217" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1637008327468" />
+    <state width="946" height="217" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1637009167306" />
     <state x="329" y="104" key="SettingsEditor" timestamp="1636543886352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="329" y="104" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1636543886352" />
-    <state x="364" y="153" key="Vcs.Push.Dialog.v2" timestamp="1636657493062">
+    <state x="364" y="153" key="Vcs.Push.Dialog.v2" timestamp="1637009128135">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="364" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1636657493062" />
+    <state x="364" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1637009128135" />
     <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1637009045144">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -251,10 +233,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="322" y="141" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1636543309579" />
-    <state x="477" y="147" width="581" height="530" key="find.popup" timestamp="1637009030574">
+    <state x="477" y="147" width="581" height="530" key="find.popup" timestamp="1637009524399">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="147" width="581" height="530" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1637009030574" />
+    <state x="477" y="147" width="581" height="530" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1637009524399" />
     <state x="492" y="208" key="git4idea.merge.GitPullDialog" timestamp="1636381062409">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

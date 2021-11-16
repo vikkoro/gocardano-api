@@ -14,7 +14,9 @@ func TestGenerateAddress(t *testing.T) {
 
 	file, _ := os.Open("./data/test_small_2.csv")
 
-	defer file.Close()
+	defer func() {
+		_ = file.Close()
+	}()
 
 	// Parse SCV file into array of Payments
 	pp, totalAmount, err := Handlers.ParseCSVFile(file, configuration.Multiplier)

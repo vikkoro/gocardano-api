@@ -29,10 +29,7 @@ func GetConfig(path string) Handlers.Configuration {
 	file, err := os.Open(path)
 
 	defer func() {
-		cerr := file.Close()
-		if err == nil {
-			err = cerr
-		}
+		_ = file.Close()
 	}()
 
 	decoder := json.NewDecoder(file)

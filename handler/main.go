@@ -67,11 +67,9 @@ func (client ClientHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 
 		defer func() {
-			err2 := file.Close()
-			if err == nil {
-				err = err2
-			}
+			_ = file.Close()
 		}()
+
 		fmt.Printf("Uploaded File: %+v\n", handler.Filename)
 		fmt.Printf("File Size: %+v\n", handler.Size)
 		fmt.Printf("MIME Header: %+v\n", handler.Header)
@@ -119,10 +117,7 @@ func (client ClientHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 
 		defer func() {
-			err2 := tempFile.Close()
-			if err == nil {
-				err = err2
-			}
+			_ = tempFile.Close()
 		}()
 
 		// Write transactions to our temporary file

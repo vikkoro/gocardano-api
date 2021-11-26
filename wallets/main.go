@@ -4,14 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
-func GetList(url string) []WalletData {
+func GetList(url string) ([]WalletData, error) {
 	response, err := http.Get(url)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, err
 	}
 
 	defer func() {
@@ -21,23 +20,23 @@ func GetList(url string) []WalletData {
 	//We Read the response body on the line below.
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return nil, err
 	}
 
 	var wallets []WalletData
 
 	err = json.Unmarshal(body, &wallets)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return nil, err
 	}
 
-	return wallets
+	return wallets, nil
 }
 
-func GetWallet(url string, walletId string) WalletData {
+func GetWallet(url string, walletId string) (WalletData, error) {
 	response, err := http.Get(url + "/" + walletId)
 	if err != nil {
-		log.Fatalln(err)
+		return WalletData{}, err
 	}
 
 	defer func() {
@@ -47,30 +46,30 @@ func GetWallet(url string, walletId string) WalletData {
 	//We Read the response body on the line below.
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return WalletData{}, err
 	}
 
 	var w WalletData
 
 	err = json.Unmarshal(body, &w)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return WalletData{}, err
 	}
 
-	return w
+	return w, err
 }
 
-func GetTransactionFee(url string, walletId string, transactions TransactionsData) EstimatedData {
+func GetTransactionFee(url string, walletId string, transactions TransactionsData) (EstimatedData, error) {
 	requestBody, err := json.Marshal(transactions)
 
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return EstimatedData{}, err
 	}
 
 	response, err := http.Post(url+"/"+walletId+"/payment-fees", "application/json", bytes.NewBuffer(requestBody))
 
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return EstimatedData{}, err
 	}
 
 	defer func() {
@@ -79,30 +78,30 @@ func GetTransactionFee(url string, walletId string, transactions TransactionsDat
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return EstimatedData{}, err
 	}
 
 	var est EstimatedData
 
 	err = json.Unmarshal(body, &est)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return EstimatedData{}, err
 	}
 
-	return est
+	return est, nil
 }
 
-func SendTransaction(url string, walletId string, transactions TransactionsData) SendTransactionsResponseData {
+func SendTransaction(url string, walletId string, transactions TransactionsData) (SendTransactionsResponseData, error) {
 	requestBody, err := json.Marshal(transactions)
 
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return SendTransactionsResponseData{}, err
 	}
 
 	response, err := http.Post(url+"/"+walletId+"/transactions", "application/json", bytes.NewBuffer(requestBody))
 
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return SendTransactionsResponseData{}, err
 	}
 
 	defer func() {
@@ -111,15 +110,15 @@ func SendTransaction(url string, walletId string, transactions TransactionsData)
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return SendTransactionsResponseData{}, err
 	}
 
 	var resp SendTransactionsResponseData
 
 	err = json.Unmarshal(body, &resp)
 	if err != nil {
-		log.Fatalf("err was %v\n", err)
+		return SendTransactionsResponseData{}, err
 	}
 
-	return resp
+	return resp, nil
 }

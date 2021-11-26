@@ -28,6 +28,10 @@ func main() {
 func GetConfig(path string) Handlers.Configuration {
 	file, err := os.Open(path)
 
+	if err != nil {
+		fmt.Println("error: ", err)
+	}
+
 	defer func() {
 		_ = file.Close()
 	}()
@@ -37,7 +41,7 @@ func GetConfig(path string) Handlers.Configuration {
 
 	err = decoder.Decode(&configuration)
 	if err != nil {
-		fmt.Println("error:", err)
+		fmt.Println("error: ", err)
 	}
 
 	return configuration

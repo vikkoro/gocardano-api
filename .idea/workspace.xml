@@ -11,10 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d53d995-415f-4929-8d45-fbd5b30a47eb" name="Default Changelist" comment="Implemented main logic, added necessary configs">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handler/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallets/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

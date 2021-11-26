@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/csv"
 	"encoding/json"
+	. "errors"
 	"fmt"
 	"github.com/gorilla/mux"
 	"html/template"
@@ -34,12 +35,28 @@ func (client ClientHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// Get Network Information
 	case "information":
-		response := SendGETRequest(client.Configuration.InformationUrl)
+		response, err := SendGETRequest(client.Configuration.InformationUrl)
+
+		if err != nil {
+			fmt.Println(err)
+
+			_ = json.NewEncoder(w).Encode(&Error{Code: 500, Message: err.Error()})
+			return
+		}
+
 		_ = json.NewEncoder(w).Encode(response)
 
 	// Get wallets list
 	case "wallets":
-		wallets := Wallets.GetList(client.Configuration.WalletsUrl)
+		wallets, err := Wallets.GetList(client.Configuration.WalletsUrl)
+
+		if err != nil {
+			fmt.Println("Error Retrieving the File")
+			fmt.Println(err)
+
+			_ = json.NewEncoder(w).Encode(&Error{Code: 500, Message: err.Error()})
+			return
+		}
 
 		fmt.Println(wallets)
 		_ = json.NewEncoder(w).Encode(wallets)
@@ -53,77 +70,93 @@ func (client ClientHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "upload":
 		fmt.Println("File Upload Endpoint Hit")
 
-		// Parse our multipart form, 10 << 20 specifies a maximum
-		// upload of 10 MB files.
-		_ = r.ParseMultipartForm(10 << 20)
-		// FormFile returns the first file for the given key `myFile`
-		// it also returns the FileHeader so we can get the Filename,
-		// the Header and the size of the file
-		file, handler, err := r.FormFile("csvFile")
+		response, err := UploadCSVFile(client.Configuration, r)
+
 		if err != nil {
 			fmt.Println("Error Retrieving the File")
 			fmt.Println(err)
+
+			_ = json.NewEncoder(w).Encode(&Error{Code: 500, Message: err.Error()})
 			return
 		}
-
-		defer func() {
-			_ = file.Close()
-		}()
-
-		fmt.Printf("Uploaded File: %+v\n", handler.Filename)
-		fmt.Printf("File Size: %+v\n", handler.Size)
-		fmt.Printf("MIME Header: %+v\n", handler.Header)
-
-		// Parse SCV file into array of Payments
-		pp, totalAmount, err := ParseCSVFile(file, client.Configuration.Multiplier)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			log.Fatal(err)
-		}
-
-		// Structure to check fees and send transactions
-		transactions := &Wallets.TransactionsData{
-			Passphrase: client.Configuration.Passphrase,
-			Payments:   pp,
-			TimeToLive: Wallets.AmountData{
-				Quantity: 500,
-				Unit:     "second",
-			},
-		}
-
-		// Check our wallet current amount
-		wallet := Wallets.GetWallet(client.Configuration.WalletsUrl, client.Configuration.WalletId)
-
-		// Get estimated fees for the transaction
-		estimated := Wallets.GetTransactionFee(client.Configuration.WalletsUrl, client.Configuration.WalletId, *transactions)
-
-		// Check if wallet amount is enough
-		if wallet.Balance.Available.Quantity < estimated.EstimatedMax.Quantity+totalAmount {
-
-			_ = json.NewEncoder(w).Encode(&Error{Code: 500, Message: "Not enough funds"})
-			_ = fmt.Errorf("Not enough funds")
-			return
-		}
-
-		// Send transaction
-		response := Wallets.SendTransaction(client.Configuration.WalletsUrl, client.Configuration.WalletId, *transactions)
 
 		_ = json.NewEncoder(w).Encode(response)
-
-		// Create a JSON file to keep record of the transactions
-		tempFile, err := ioutil.TempFile(client.Configuration.UploadDirectory, "transactions-*.json")
-		if err != nil {
-			fmt.Println(err)
-		}
-
-		defer func() {
-			_ = tempFile.Close()
-		}()
-
-		// Write transactions to our temporary file
-		_ = json.NewEncoder(tempFile).Encode(transactions)
 	}
 
+}
+
+// Upload SCV file
+func UploadCSVFile(config Configuration, r *http.Request) (Wallets.SendTransactionsResponseData, error) {
+
+	// Parse our multipart form, 10 << 20 specifies a maximum
+	// upload of 10 MB files.
+	_ = r.ParseMultipartForm(10 << 20)
+	// FormFile returns the first file for the given key `myFile`
+	// it also returns the FileHeader so we can get the Filename,
+	// the Header and the size of the file
+	file, handler, err := r.FormFile("csvFile")
+	if err != nil {
+		return Wallets.SendTransactionsResponseData{}, err
+	}
+
+	defer func() {
+		_ = file.Close()
+	}()
+
+	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
+	fmt.Printf("File Size: %+v\n", handler.Size)
+	fmt.Printf("MIME Header: %+v\n", handler.Header)
+
+	// Parse SCV file into array of Payments
+	pp, totalAmount, err := ParseCSVFile(file, config.Multiplier)
+	if err != nil {
+		return Wallets.SendTransactionsResponseData{}, err
+	}
+
+	// Structure to check fees and send transactions
+	transactions := &Wallets.TransactionsData{
+		Passphrase: config.Passphrase,
+		Payments:   pp,
+		TimeToLive: Wallets.AmountData{
+			Quantity: 500,
+			Unit:     "second",
+		},
+	}
+
+	// Check our wallet current amount
+	wallet, err := Wallets.GetWallet(config.WalletsUrl, config.WalletId)
+	if err != nil {
+		return Wallets.SendTransactionsResponseData{}, err
+	}
+
+	// Get estimated fees for the transaction
+	estimated, err := Wallets.GetTransactionFee(config.WalletsUrl, config.WalletId, *transactions)
+	if err != nil {
+		return Wallets.SendTransactionsResponseData{}, err
+	}
+
+	// Check if wallet amount is enough
+	if wallet.Balance.Available.Quantity < estimated.EstimatedMax.Quantity+totalAmount {
+		return Wallets.SendTransactionsResponseData{}, New("not enough funds")
+	}
+
+	// Send transaction
+	response, err := Wallets.SendTransaction(config.WalletsUrl, config.WalletId, *transactions)
+
+	// Create a JSON file to keep record of the transactions
+	tempFile, err := ioutil.TempFile(config.UploadDirectory, "transactions-*.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer func() {
+		_ = tempFile.Close()
+	}()
+
+	// Write transactions to our temporary file
+	_ = json.NewEncoder(tempFile).Encode(transactions)
+
+	return response, nil
 }
 
 // Parse SCV file into array of Payments
@@ -175,22 +208,22 @@ func ParseCSVFile(file multipart.File, multiplier uint64) ([]Wallets.PaymentData
 	return pp, aa, nil
 }
 
-func SendGETRequest(url string) string {
+func SendGETRequest(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatalln(err)
+		return "", err
 	}
 
 	//We Read the response body on the line below.
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalln(err)
+		return "", err
 	}
 
 	sb := string(body)
 	log.Printf(sb)
 
-	return sb
+	return sb, nil
 }
 
 // Render HTML page from template file

@@ -91,11 +91,11 @@ type BalanceData struct {
 	Available AmountData `json:"available"`
 }
 
-/* Data structure for the Send Transaction Request
+/* Data structure for the Send Transfer Request
 URL http://localhost:8090/v2/wallets/WalletId00000000000000000000000000000000/transactions
 
 {
-    "passphrase":"1234567890",
+    "passphrase":"<passphrase>",
     "payments": [
       {
         "address": "addr_test000000000000000000000000000000000000000000000000000000",
@@ -126,7 +126,7 @@ URL http://localhost:8090/v2/wallets/WalletId00000000000000000000000000000000/tr
   }
 */
 
-type TransactionsData struct {
+type BulkPaymentsData struct {
 	Passphrase string        `json:"passphrase"`
 	Payments   []PaymentData `json:"payments"`
 	TimeToLive AmountData    `json:"time_to_live"`
@@ -228,7 +228,7 @@ URL http://localhost:8090/v2/wallets/WalletId00000000000000000000000000000000/tr
 }
 */
 
-type SendTransactionsResponseData struct {
+type TransferFundsResponseData struct {
 	Id             string           `json:"id"`
 	Status         string           `json:"status"`
 	Direction      string           `json:"direction"`

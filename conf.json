@@ -1,9 +1,5 @@
 {
-  "mnemonic": [
-    "advance", "mirror", "input", "witness", "test", "swift", "soul", "good", "point", "rigid", "dolphin", "cereal", "increase", "electric", "involve", "special", "wink", "mix", "knee", "insect", "maple", "library", "song", "raise"
-  ],
   "wallet_id": "25173dda1ab0fc08cec6f11642e01dc3b56f3da7",
-  "passphrase": "1234567890",
   "information_url": "http://localhost:8090/v2/network/information",
   "wallets_url": "http://localhost:8090/v2/wallets",
   "multiplier": 1000000,

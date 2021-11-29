@@ -33,10 +33,10 @@ func GetList(url string) ([]WalletData, error) {
 	return wallets, nil
 }
 
-func GetWallet(url string, walletId string) (WalletData, error) {
+func GetWallet(url string, walletId string) (*WalletData, error) {
 	response, err := http.Get(url + "/" + walletId)
 	if err != nil {
-		return WalletData{}, err
+		return nil, err
 	}
 
 	defer func() {
@@ -46,30 +46,30 @@ func GetWallet(url string, walletId string) (WalletData, error) {
 	//We Read the response body on the line below.
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return WalletData{}, err
+		return nil, err
 	}
 
-	var w WalletData
+	var wallet *WalletData
 
-	err = json.Unmarshal(body, &w)
+	err = json.Unmarshal(body, &wallet)
 	if err != nil {
-		return WalletData{}, err
+		return nil, err
 	}
 
-	return w, err
+	return wallet, err
 }
 
-func GetTransactionFee(url string, walletId string, transactions TransactionsData) (EstimatedData, error) {
-	requestBody, err := json.Marshal(transactions)
+func GetTransferFee(url string, walletId string, payments BulkPaymentsData) (*EstimatedData, error) {
+	requestBody, err := json.Marshal(payments)
 
 	if err != nil {
-		return EstimatedData{}, err
+		return nil, err
 	}
 
 	response, err := http.Post(url+"/"+walletId+"/payment-fees", "application/json", bytes.NewBuffer(requestBody))
 
 	if err != nil {
-		return EstimatedData{}, err
+		return nil, err
 	}
 
 	defer func() {
@@ -78,30 +78,30 @@ func GetTransactionFee(url string, walletId string, transactions TransactionsDat
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return EstimatedData{}, err
+		return nil, err
 	}
 
-	var est EstimatedData
+	var est *EstimatedData
 
 	err = json.Unmarshal(body, &est)
 	if err != nil {
-		return EstimatedData{}, err
+		return nil, err
 	}
 
 	return est, nil
 }
 
-func SendTransaction(url string, walletId string, transactions TransactionsData) (SendTransactionsResponseData, error) {
-	requestBody, err := json.Marshal(transactions)
+func TransferFunds(url string, walletId string, payments BulkPaymentsData) (*TransferFundsResponseData, error) {
+	requestBody, err := json.Marshal(payments)
 
 	if err != nil {
-		return SendTransactionsResponseData{}, err
+		return nil, err
 	}
 
 	response, err := http.Post(url+"/"+walletId+"/transactions", "application/json", bytes.NewBuffer(requestBody))
 
 	if err != nil {
-		return SendTransactionsResponseData{}, err
+		return nil, err
 	}
 
 	defer func() {
@@ -110,14 +110,14 @@ func SendTransaction(url string, walletId string, transactions TransactionsData)
 
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return SendTransactionsResponseData{}, err
+		return nil, err
 	}
 
-	var resp SendTransactionsResponseData
+	var resp *TransferFundsResponseData
 
 	err = json.Unmarshal(body, &resp)
 	if err != nil {
-		return SendTransactionsResponseData{}, err
+		return nil, err
 	}
 
 	return resp, nil

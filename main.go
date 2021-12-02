@@ -1,58 +1,45 @@
 package main
 
 import (
-	"encoding/json"
-	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
-	Handlers "github.com/vikkoro/gocardano-api/handler"
+	"github.com/vikkoro/gocardano-api/pkg/cardano"
+	"github.com/vikkoro/gocardano-api/pkg/config"
+	"github.com/vikkoro/gocardano-api/pkg/files"
+	"github.com/vikkoro/gocardano-api/pkg/handlers"
+	"github.com/vikkoro/gocardano-api/pkg/parser"
+	"github.com/vikkoro/gocardano-api/pkg/wallet"
 	"log"
-	"net/http"
 	"os"
 )
 
 func main() {
 
-	configuration, err := GetConfig("conf.json")
-	if err != nil {
-		log.Fatal("main:", err)
-	}
+	// Setup log file
+	logging("info.log")
 
-	// Create a mux router
-	r := mux.NewRouter()
+	// Read config file
+	cfg := config.NewConfig("conf.json", ".env")
 
-	// We will define a single endpoint
-	r.Handle("/api/v1/cardano/{module}", Handlers.ClientHandler{Configuration: configuration})
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./assets/")))
+	// Create Services with DI
+	cs := cardano.NewService(cfg)
+	ws := wallet.NewService(cfg, cs)
+	ps := parser.NewService(cfg)
+	fs := files.NewService(cfg)
 
-	// Listen to port 8080 for incoming REST calls
-	log.Fatal(http.ListenAndServe(":8080", r))
+	handlers.NewRestService(cfg, ws, ps, fs)
 }
 
-func GetConfig(path string) (Handlers.Configuration, error) {
-	err := godotenv.Load(".env")
-	if err != nil {
-		return Handlers.Configuration{}, err
-	}
+// Setup log file
+func logging(logFile string) {
 
-	file, err := os.Open(path)
-
+	file, err := os.OpenFile(logFile, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		return Handlers.Configuration{}, err
+		log.Fatal(err)
 	}
 
 	defer func() {
 		_ = file.Close()
 	}()
 
-	decoder := json.NewDecoder(file)
-	configuration := Handlers.Configuration{}
-
-	err = decoder.Decode(&configuration)
-	if err != nil {
-		return Handlers.Configuration{}, err
-	}
-
-	configuration.Passphrase = os.Getenv("PASSPHRASE")
-
-	return configuration, nil
+	log.SetOutput(file)
+	log.Print("Logging to a file in Go!")
 }

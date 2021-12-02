@@ -3,5 +3,6 @@
   "information_url": "http://localhost:8090/v2/network/information",
   "wallets_url": "http://localhost:8090/v2/wallets",
   "multiplier": 1000000,
-  "upload_directory": "C:/Projects/go/gocardano-api/upload"
+  "upload_directory": "C:/Projects/go/gocardano-api/upload",
+  "payments_max": 100
 }

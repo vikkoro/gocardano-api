@@ -10,17 +10,31 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d53d995-415f-4929-8d45-fbd5b30a47eb" name="Default Changelist" comment="Added .env file with all sensitive info meant to be stored in local environment&#10;Added unit test on CSV file parsing routine">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="6d53d995-415f-4929-8d45-fbd5b30a47eb" name="Default Changelist" comment="Added .env file with all sensitive info meant to be stored in local environment&#10;Added unit test on CSV file parsing routine&#10;Improved error handling">
+      <change afterPath="$PROJECT_DIR$/pkg/cardano/models.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/cardano/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/cardano/service_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/config/models.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/config/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/files/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/files/service_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/handlers/rest.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/parser/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/parser/service_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/wallet/service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/wallet/service_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/tower-file-input.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/tower-file-input.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf.json" beforeDir="false" afterPath="$PROJECT_DIR$/conf.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/handler/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handlers/models.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets/models.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets/models.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallets_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/wallets_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallets/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallets/models.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallets_test.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +76,7 @@
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="js.buildTools.grunt.grunt-cli.package" value="" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pkg/parser" />
     <property name="nodejs.jest.jest_package" value="" />
     <property name="nodejs.protractor.protractor_package" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -70,21 +84,22 @@
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/configs/mainnet-rest-config.json" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\go\gocardano-api\pkg\parser" />
+      <recent name="C:\Projects\go\gocardano-api\pkg\files" />
+      <recent name="C:\Projects\go\gocardano-api\pkg\cardano" />
+      <recent name="C:\Projects\go\gocardano-api\pkg\file" />
+      <recent name="C:\Projects\go\gocardano-api\pkg\csv" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projects\go\gocardano-api\pkg\config" />
+      <recent name="C:\Projects\go\gocardano-api\pkg\handlers" />
+      <recent name="C:\Projects\go\gocardano-api\pkg\storage" />
       <recent name="C:\Projects\go\gocardano-api" />
       <recent name="C:\Projects\go\gocardano-api\assets\css" />
-      <recent name="C:\Projects\go\gocardano-api\assets\js" />
-      <recent name="C:\Projects\go\gocardano-api\assets\image" />
-      <recent name="C:\Projects\go\gocardano-api\assets" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Projects\go\gocardano-api\data" />
-      <recent name="C:\Projects\go\gocardano-api\wallets" />
-      <recent name="C:\Projects\go\gocardano-api\assets\js" />
-      <recent name="C:\Projects\go\gocardano-api" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestParseCSVFile in github.com/vikkoro/gocardano-api">
+  <component name="RunManager" selected="Go Test.TestService_GetTransferFee in github.com/vikkoro/gocardano-api/pkg/wallet">
     <configuration name="go build github.com/vikkoro/gocardano-api" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="gocardano-api" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -95,47 +110,59 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGenerateAddress in github.com/vikkoro/gocardano-api" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestService_GetTransferFee in github.com/vikkoro/gocardano-api/pkg/cardano" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gocardano-api" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/pkg/cardano" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/vikkoro/gocardano-api" />
+      <package value="github.com/vikkoro/gocardano-api/pkg/cardano" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestGenerateAddress$" />
+      <pattern value="^TestService_GetTransferFee$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGenerateAddress in github.com/vikkoro/gocardano-api/wallets" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestService_GetTransferFee in github.com/vikkoro/gocardano-api/pkg/wallet" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gocardano-api" />
-      <working_directory value="$PROJECT_DIR$/wallets" />
+      <working_directory value="$PROJECT_DIR$/pkg/wallet" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/vikkoro/gocardano-api/wallets" />
+      <package value="github.com/vikkoro/gocardano-api/pkg/wallet" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestGenerateAddress$" />
+      <pattern value="^TestService_GetTransferFee$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestParseCSVFile in github.com/vikkoro/gocardano-api" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestService_ParsePayments in github.com/vikkoro/gocardano-api/pkg/parser" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gocardano-api" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/pkg/parser" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/vikkoro/gocardano-api" />
+      <package value="github.com/vikkoro/gocardano-api/pkg/parser" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^TestParseCSVFile$" />
+      <pattern value="^TestService_ParsePayments$" />
       <method v="2" />
     </configuration>
-    <configuration name="go test github.com/vikkoro/gocardano-api" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestService_SaveJSONFile in github.com/vikkoro/gocardano-api/pkg/files" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="gocardano-api" />
-      <working_directory value="$PROJECT_DIR$" />
+      <working_directory value="$PROJECT_DIR$/pkg/files" />
       <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/vikkoro/gocardano-api" />
+      <package value="github.com/vikkoro/gocardano-api/pkg/files" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestService_SaveJSONFile$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestService_Transfer in github.com/vikkoro/gocardano-api/pkg/cardano" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gocardano-api" />
+      <working_directory value="$PROJECT_DIR$/pkg/cardano" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/vikkoro/gocardano-api/pkg/cardano" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestService_Transfer$" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="js.build_tools.grunt">
@@ -154,10 +181,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestParseCSVFile in github.com/vikkoro/gocardano-api" />
-        <item itemvalue="Go Test.go test github.com/vikkoro/gocardano-api" />
-        <item itemvalue="Go Test.TestGenerateAddress in github.com/vikkoro/gocardano-api" />
-        <item itemvalue="Go Test.TestGenerateAddress in github.com/vikkoro/gocardano-api/wallets" />
+        <item itemvalue="Go Test.TestService_GetTransferFee in github.com/vikkoro/gocardano-api/pkg/wallet" />
+        <item itemvalue="Go Test.TestService_ParsePayments in github.com/vikkoro/gocardano-api/pkg/parser" />
+        <item itemvalue="Go Test.TestService_SaveJSONFile in github.com/vikkoro/gocardano-api/pkg/files" />
+        <item itemvalue="Go Test.TestService_GetTransferFee in github.com/vikkoro/gocardano-api/pkg/cardano" />
+        <item itemvalue="Go Test.TestService_Transfer in github.com/vikkoro/gocardano-api/pkg/cardano" />
       </list>
     </recent_temporary>
   </component>
@@ -182,7 +210,8 @@
     <MESSAGE value="Removed temp files" />
     <MESSAGE value="Implemented main logic, added necessary configs" />
     <MESSAGE value="Fixed errors handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed errors handling" />
+    <MESSAGE value="Added .env file with all sensitive info meant to be stored in local environment&#10;Added unit test on CSV file parsing routine&#10;Improved error handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added .env file with all sensitive info meant to be stored in local environment&#10;Added unit test on CSV file parsing routine&#10;Improved error handling" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -196,66 +225,74 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="158" y="134" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1636544189959" />
+    <state x="536" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1638268263538">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="536" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1638268263538" />
+    <state x="484" y="39" key="#go_build_github.com/vikkoro/gocardano-api/cmd/server" timestamp="1638271839677">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="484" y="39" key="#go_build_github.com/vikkoro/gocardano-api/cmd/server/0.0.1536.824@0.0.1536.824" timestamp="1638271839677" />
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1636718802813">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1636718802813" />
-    <state x="600" y="214" key="FileChooserDialogImpl" timestamp="1636718497879">
+    <state x="600" y="214" key="FileChooserDialogImpl" timestamp="1638233800447">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="600" y="214" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1636718497879" />
-    <state width="1002" height="186" key="GridCell.Tab.0.bottom" timestamp="1638194808381">
+    <state x="600" y="214" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1638233800447" />
+    <state width="1493" height="229" key="GridCell.Tab.0.bottom" timestamp="1638453036712">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1002" height="186" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
-    <state width="1002" height="186" key="GridCell.Tab.0.center" timestamp="1638194808381">
+    <state width="1493" height="229" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1638453036712" />
+    <state width="1493" height="229" key="GridCell.Tab.0.center" timestamp="1638453036712">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1002" height="186" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
-    <state width="1002" height="186" key="GridCell.Tab.0.left" timestamp="1638194808381">
+    <state width="1493" height="229" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1638453036712" />
+    <state width="1493" height="229" key="GridCell.Tab.0.left" timestamp="1638453036712">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1002" height="186" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
-    <state width="1002" height="186" key="GridCell.Tab.0.right" timestamp="1638194808381">
+    <state width="1493" height="229" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1638453036712" />
+    <state width="1493" height="229" key="GridCell.Tab.0.right" timestamp="1638453036712">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1002" height="186" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
-    <state width="940" height="323" key="GridCell.Tab.1.bottom" timestamp="1638194808381">
+    <state width="1493" height="229" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1638453036712" />
+    <state width="1493" height="229" key="GridCell.Tab.1.bottom" timestamp="1638453036633">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="940" height="323" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
-    <state width="940" height="323" key="GridCell.Tab.1.center" timestamp="1638194808381">
+    <state width="1493" height="229" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1638453036633" />
+    <state width="1493" height="229" key="GridCell.Tab.1.center" timestamp="1638453036633">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="940" height="323" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
-    <state width="940" height="323" key="GridCell.Tab.1.left" timestamp="1638194808381">
+    <state width="1493" height="229" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1638453036633" />
+    <state width="1493" height="229" key="GridCell.Tab.1.left" timestamp="1638453036633">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="940" height="323" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
-    <state width="940" height="323" key="GridCell.Tab.1.right" timestamp="1638194808381">
+    <state width="1493" height="229" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1638453036633" />
+    <state width="1493" height="229" key="GridCell.Tab.1.right" timestamp="1638453036633">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="940" height="323" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1638194808381" />
+    <state width="1493" height="229" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1638453036633" />
     <state x="329" y="104" key="SettingsEditor" timestamp="1636543886352">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="329" y="104" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1636543886352" />
-    <state x="364" y="153" key="Vcs.Push.Dialog.v2" timestamp="1637936654639">
+    <state x="364" y="153" key="Vcs.Push.Dialog.v2" timestamp="1638194989238">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="364" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1637936654639" />
-    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1637009045144">
+    <state x="364" y="153" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1638194989238" />
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1638382588020">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1637009045144" />
+    <state x="93" y="93" width="1350" height="638" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.824@0.0.1536.824" timestamp="1638382588020" />
     <state x="322" y="141" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1636543309579">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="322" y="141" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1636543309579" />
-    <state x="477" y="147" width="581" height="530" key="find.popup" timestamp="1638193937300">
+    <state x="477" y="147" width="581" height="604" key="find.popup" timestamp="1638451837562">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="477" y="147" width="581" height="530" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1638193937300" />
+    <state x="477" y="147" width="581" height="604" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1638451837562" />
     <state x="492" y="208" key="git4idea.merge.GitPullDialog" timestamp="1636381062409">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -266,11 +303,15 @@
     <state x="431" y="145" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1636545765630" />
   </component>
   <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="GoApplicationRunConfiguration">
-        <watch expression="*(*&quot;github.com/vikkoro/gocardano-api/wallets.EstimatedData&quot;)(824634627056)" />
-      </configuration>
-    </watches-manager>
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/logging/service.go</url>
+          <line>49</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/gocardano_api$TestGenerateAddress_in_github_com_vikkoro_gocardano_api.out" NAME="TestGenerateAddress in github.com/vikkoro/gocardano-api Coverage Results" MODIFIED="1636997898365" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

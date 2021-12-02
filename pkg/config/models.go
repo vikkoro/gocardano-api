@@ -1,13 +1,4 @@
-package handlers
-
-type Error struct {
-	Code    uint64 `json:"code"`
-	Message string `json:"message"`
-}
-
-type ClientHandler struct {
-	Configuration
-}
+package config
 
 type Configuration struct {
 	WalletId        string   `json:"wallet_id"`
@@ -17,9 +8,5 @@ type Configuration struct {
 	WalletsUrl      string   `json:"wallets_url"`
 	Multiplier      uint64   `json:"multiplier"`
 	UploadDirectory string   `json:"upload_directory"`
-}
-
-type ViewData struct {
-	Title string
-	Data  string
+	PaymentsMax     uint64   `json:"payments_max"`
 }

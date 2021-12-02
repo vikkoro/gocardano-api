@@ -1,6 +1,5 @@
-package wallets
+package cardano
 
-// Error data structure
 type Error struct {
 	Code    uint64 `json:"code"`
 	Message string `json:"message"`
@@ -16,7 +15,7 @@ type Error struct {
 }
 */
 
-type CreateWalletData struct {
+type CreateWallet struct {
 	Name             string   `json:"name"`
 	MnemonicSentence []string `json:"mnemonic_sentence"`
 	Passphrase       string   `json:"passphrase"`
@@ -74,21 +73,26 @@ URL http://localhost:8090/v2/wallets/WalletId00000000000000000000000000000000
 
 */
 
-type WalletData struct {
-	Name    string      `json:"name"`
-	Id      string      `json:"id"`
-	State   StateData   `json:"state"`
-	Balance BalanceData `json:"balance"`
+type Wallet struct {
+	Name    string  `json:"name"`
+	Id      string  `json:"id"`
+	State   State   `json:"state"`
+	Balance Balance `json:"balance"`
 }
 
-type StateData struct {
+type State struct {
 	Status string `json:"status"`
 }
 
-type BalanceData struct {
-	Reward    AmountData `json:"reward"`
-	Total     AmountData `json:"total"`
-	Available AmountData `json:"available"`
+type Balance struct {
+	Reward    Amount `json:"reward"`
+	Total     Amount `json:"total"`
+	Available Amount `json:"available"`
+}
+
+type Amount struct {
+	Quantity float64 `json:"quantity"`
+	Unit     string  `json:"unit"`
 }
 
 /* Data structure for the Send Transfer Request
@@ -126,20 +130,47 @@ URL http://localhost:8090/v2/wallets/WalletId00000000000000000000000000000000/tr
   }
 */
 
-type BulkPaymentsData struct {
-	Passphrase string        `json:"passphrase"`
-	Payments   []PaymentData `json:"payments"`
-	TimeToLive AmountData    `json:"time_to_live"`
+type Payments struct {
+	Passphrase string    `json:"passphrase"`
+	Payments   []Payment `json:"payments"`
+	TimeToLive Amount    `json:"time_to_live"`
 }
 
-type PaymentData struct {
-	Address string     `json:"address"`
-	Amount  AmountData `json:"amount"`
+type Payment struct {
+	Address string `json:"address"`
+	Amount  Amount `json:"amount"`
 }
 
-type AmountData struct {
-	Quantity float64 `json:"quantity"`
-	Unit     string  `json:"unit"`
+/* Data structure for the Payment Fees Response
+URL http://localhost:8090/v2/wallets/WalletId000000000000000000000000000000/payment-fees
+
+{
+    "estimated_min": {
+        "quantity": 167789,
+        "unit": "lovelace"
+    },
+    "deposit": {
+        "quantity": 0,
+        "unit": "lovelace"
+    },
+    "minimum_coins": [
+        {
+            "quantity": 999978,
+            "unit": "lovelace"
+        }
+    ],
+    "estimated_max": {
+        "quantity": 167789,
+        "unit": "lovelace"
+    }
+}
+*/
+
+type Estimated struct {
+	EstimatedMin Amount   `json:"estimated_min"`
+	EstimatedMax Amount   `json:"estimated_max"`
+	Deposit      Amount   `json:"deposit"`
+	MinimumCoins []Amount `json:"minimum_coins"`
 }
 
 /* Data structure for the Send Transaction Response
@@ -228,75 +259,43 @@ URL http://localhost:8090/v2/wallets/WalletId00000000000000000000000000000000/tr
 }
 */
 
-type TransferFundsResponseData struct {
-	Id             string           `json:"id"`
-	Status         string           `json:"status"`
-	Direction      string           `json:"direction"`
-	Amount         AmountData       `json:"amount"`
-	Fee            AmountData       `json:"fee"`
-	Deposit        AmountData       `json:"deposit"`
-	Inputs         []InputData      `json:"inputs"`
-	Outputs        []OutputData     `json:"outputs"`
-	ExpiresAt      ExpiresAtData    `json:"expires_at"`
-	PendingSince   PendingSinceData `json:"pending_since"`
-	ScriptValidity string           `json:"script_validity"`
+type TransferResponse struct {
+	Id             string       `json:"id"`
+	Status         string       `json:"status"`
+	Direction      string       `json:"direction"`
+	Amount         Amount       `json:"amount"`
+	Fee            Amount       `json:"fee"`
+	Deposit        Amount       `json:"deposit"`
+	Inputs         []Input      `json:"inputs"`
+	Outputs        []Output     `json:"outputs"`
+	ExpiresAt      ExpiresAt    `json:"expires_at"`
+	PendingSince   PendingSince `json:"pending_since"`
+	ScriptValidity string       `json:"script_validity"`
 }
 
-type InputData struct {
-	Id      string     `json:"id"`
-	Index   uint64     `json:"index"`
-	Address string     `json:"address"`
-	Amount  AmountData `json:"amount"`
+type Input struct {
+	Id      string `json:"id"`
+	Index   uint64 `json:"index"`
+	Address string `json:"address"`
+	Amount  Amount `json:"amount"`
 }
 
-type OutputData struct {
-	Address string     `json:"address"`
-	Amount  AmountData `json:"amount"`
+type Output struct {
+	Address string `json:"address"`
+	Amount  Amount `json:"amount"`
 }
 
-type ExpiresAtData struct {
+type ExpiresAt struct {
 	Time               string `json:"time"`
 	EpochNumber        uint64 `json:"epoch_number"`
 	AbsoluteSlotNumber uint64 `json:"absolute_slot_number"`
 	SlotNumber         uint64 `json:"slot_number"`
 }
 
-type PendingSinceData struct {
-	Height             AmountData `json:"height"`
-	Time               string     `json:"time"`
-	EpochNumber        uint64     `json:"epoch_number"`
-	AbsoluteSlotNumber uint64     `json:"absolute_slot_number"`
-	SlotNumber         uint64     `json:"slot_number"`
-}
-
-/* Data structure for the Payment Fees Response
-URL http://localhost:8090/v2/wallets/WalletId000000000000000000000000000000/payment-fees
-
-{
-    "estimated_min": {
-        "quantity": 167789,
-        "unit": "lovelace"
-    },
-    "deposit": {
-        "quantity": 0,
-        "unit": "lovelace"
-    },
-    "minimum_coins": [
-        {
-            "quantity": 999978,
-            "unit": "lovelace"
-        }
-    ],
-    "estimated_max": {
-        "quantity": 167789,
-        "unit": "lovelace"
-    }
-}
-*/
-
-type EstimatedData struct {
-	EstimatedMin AmountData   `json:"estimated_min"`
-	EstimatedMax AmountData   `json:"estimated_max"`
-	Deposit      AmountData   `json:"deposit"`
-	MinimumCoins []AmountData `json:"minimum_coins"`
+type PendingSince struct {
+	Height             Amount `json:"height"`
+	Time               string `json:"time"`
+	EpochNumber        uint64 `json:"epoch_number"`
+	AbsoluteSlotNumber uint64 `json:"absolute_slot_number"`
+	SlotNumber         uint64 `json:"slot_number"`
 }

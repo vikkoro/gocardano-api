@@ -8,6 +8,14 @@ import (
 )
 
 // Service interface used to list the strings
+type Cardano interface {
+	GetWallets() ([]cardano.Wallet, error)
+	GetWallet(string) (*cardano.Wallet, error)
+	GetTransferFee(*cardano.Payments) (*cardano.Estimated, error)
+	Transfer(*cardano.Payments) (*cardano.TransferResponse, error)
+}
+
+// Service interface used to list the strings
 type Service interface {
 	GetWallets() ([]cardano.Wallet, error)
 	GetWallet(string) (*cardano.Wallet, error)
@@ -17,11 +25,11 @@ type Service interface {
 
 type service struct {
 	cfg *config.Configuration
-	c   cardano.Service
+	c   Cardano
 }
 
 // NewService constructor of the default service.
-func NewService(_cfg *config.Configuration, _c cardano.Service) *service {
+func NewService(_cfg *config.Configuration, _c Cardano) *service {
 	return &service{_cfg, _c}
 }
 

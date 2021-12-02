@@ -3,10 +3,8 @@ package handlers
 import (
 	"bytes"
 	"github.com/gin-gonic/gin"
+	"github.com/vikkoro/gocardano-api/pkg/cardano"
 	"github.com/vikkoro/gocardano-api/pkg/config"
-	"github.com/vikkoro/gocardano-api/pkg/files"
-	"github.com/vikkoro/gocardano-api/pkg/parser"
-	"github.com/vikkoro/gocardano-api/pkg/wallet"
 	"html/template"
 	"io"
 	"log"
@@ -14,7 +12,23 @@ import (
 	"path"
 )
 
-func NewRestService(_c *config.Configuration, _w wallet.Service, _p parser.Service, _f files.Service) {
+type Wallet interface {
+	GetWallets() ([]cardano.Wallet, error)
+	GetWallet(string) (*cardano.Wallet, error)
+	//GetTransferFee(cardano.Payments) (*cardano.Estimated, error)
+	Transfer([]cardano.Payment, uint64) (*cardano.TransferResponse, error)
+}
+
+type Files interface {
+	SaveJSONFile(string, interface{}) (string, error)
+	ReadJSONFile(string, interface{}) (interface{}, error)
+}
+
+type Parser interface {
+	ParsePayments(string) ([]cardano.Payment, uint64, error)
+}
+
+func NewRestService(_c *config.Configuration, _w Wallet, _p Parser, _f Files) {
 	rest := &restService{cfg: _c, w: _w, p: _p, f: _f}
 
 	r := gin.Default()
@@ -30,9 +44,9 @@ func NewRestService(_c *config.Configuration, _w wallet.Service, _p parser.Servi
 
 type restService struct {
 	cfg *config.Configuration
-	w   wallet.Service
-	p   parser.Service
-	f   files.Service
+	w   Wallet
+	p   Parser
+	f   Files
 }
 
 func (rs *restService) getHome(c *gin.Context) {

@@ -3,6 +3,5 @@
   "wallets_url": "http://localhost:8090/v2/wallets",
   "multiplier": 1000000,
   "upload_directory": "C:/Projects/go/gocardano-api/upload",
-  "payments_max": 100,
-  "log_file": "info.log"
+  "payments_max": 100
 }

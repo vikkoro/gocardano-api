@@ -78,7 +78,7 @@ func (s *service) ParsePayments(cvsString string) ([]cardano.Payment, uint64, er
 		})
 
 		// do something with read line
-		fmt.Printf("%+v\n", rec)
+		//fmt.Printf("%+v\n", rec)
 
 		lineCounter++
 	}

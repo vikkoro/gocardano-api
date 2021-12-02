@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"bytes"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/vikkoro/gocardano-api/pkg/config"
 	"github.com/vikkoro/gocardano-api/pkg/files"
@@ -100,9 +99,9 @@ func (rs *restService) transfer(c *gin.Context) {
 		_ = file.Close()
 	}()
 
-	fmt.Printf("Uploaded File: %+v\n", handler.Filename)
-	fmt.Printf("File Size: %+v\n", handler.Size)
-	fmt.Printf("MIME Header: %+v\n", handler.Header)
+	log.Printf("Uploaded File: %+v\n", handler.Filename)
+	log.Printf("File Size: %+v\n", handler.Size)
+	log.Printf("MIME Header: %+v\n", handler.Header)
 
 	buf := bytes.NewBuffer(nil)
 	if _, err := io.Copy(buf, file); err != nil {
@@ -128,7 +127,7 @@ func (rs *restService) transfer(c *gin.Context) {
 	})
 
 	if _, err = rs.f.SaveJSONFile(rs.cfg.UploadDirectory, payments); err != nil {
-		log.Printf("REST ERROR: %q", err.Error())
+		log.Printf("FILES ERROR: %q", err.Error())
 	}
 
 }
@@ -152,7 +151,7 @@ func Render(w http.ResponseWriter, templateFile string) error {
 }
 
 func SendError(c *gin.Context, err error, code uint64) {
-	log.Printf("REST ERROR: %q", err.Error())
+	log.Printf("ERROR: %q", err.Error())
 
 	switch code {
 

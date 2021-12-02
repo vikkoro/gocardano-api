@@ -13,11 +13,11 @@ import (
 
 func main() {
 
-	// Setup log file
-	logging("info.log")
-
 	// Read config file
 	cfg := config.NewConfig("conf.json", ".env")
+
+	// Setup log file
+	logging(cfg.LogFile)
 
 	// Create Services with DI
 	cs := cardano.NewService(cfg)

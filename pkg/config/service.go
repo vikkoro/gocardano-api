@@ -27,15 +27,16 @@ func NewConfig(conf string, env string) *Configuration {
 	}()
 
 	decoder := json.NewDecoder(file)
-	configuration := Configuration{}
+	cfg := Configuration{}
 
-	err = decoder.Decode(&configuration)
+	err = decoder.Decode(&cfg)
 	if err != nil {
 		log.Fatal(err)
 		return nil
 	}
 
-	configuration.Passphrase = os.Getenv("PASSPHRASE")
+	cfg.Passphrase = os.Getenv("PASSPHRASE")
+	cfg.WalletId = os.Getenv("WALLET_ID")
 
-	return &configuration
+	return &cfg
 }

@@ -9,4 +9,5 @@ type Configuration struct {
 	Multiplier      uint64   `json:"multiplier"`
 	UploadDirectory string   `json:"upload_directory"`
 	PaymentsMax     uint64   `json:"payments_max"`
+	LogFile         string   `json:"log_file"`
 }

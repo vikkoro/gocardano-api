@@ -2,46 +2,47 @@ package cardano
 
 import (
 	"github.com/vikkoro/gocardano-api/pkg/config"
+	"github.com/vikkoro/gocardano-api/pkg/wallet"
 	"testing"
 )
 
 var cfg *config.Configuration
 
-var payments *Payments
+var payments *wallet.Payments
 
 func setUp() {
 	cfg = config.NewConfig("../../conf.json", "../../.env")
 
-	var pp []Payment
+	var pp []wallet.Payment
 
-	pp = append(pp, Payment{
+	pp = append(pp, wallet.Payment{
 		Address: "addr_test1vz3vh7nagum5lf66ej873wur740qm32ek536gqa2wl0n24crf4ry5",
-		Amount: Amount{
+		Amount: wallet.Amount{
 			Quantity: 2000000,
 			Unit:     "lovelace",
 		},
 	})
 
-	pp = append(pp, Payment{
+	pp = append(pp, wallet.Payment{
 		Address: "addr_test1vqn70eqljagvahj5cmnrprrywuflu5u9k6zum75c9qdqvgcz44msn",
-		Amount: Amount{
+		Amount: wallet.Amount{
 			Quantity: 1500000,
 			Unit:     "lovelace",
 		},
 	})
 
-	pp = append(pp, Payment{
+	pp = append(pp, wallet.Payment{
 		Address: "addr_test1vpcsfa78jy5qwr40kzpr2s3ky7ga68al0qcsxgd9rkwnrecjvehy7",
-		Amount: Amount{
+		Amount: wallet.Amount{
 			Quantity: 2500000,
 			Unit:     "lovelace",
 		},
 	})
 
-	payments = &Payments{
+	payments = &wallet.Payments{
 		Passphrase: cfg.Passphrase,
 		Payments:   pp,
-		TimeToLive: Amount{
+		TimeToLive: wallet.Amount{
 			Quantity: 500,
 			Unit:     "second",
 		},

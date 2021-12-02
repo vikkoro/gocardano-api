@@ -5,16 +5,17 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/vikkoro/gocardano-api/pkg/config"
+	"github.com/vikkoro/gocardano-api/pkg/wallet"
 	"io/ioutil"
 	"net/http"
 )
 
 // Service interface used to list the strings
 type Service interface {
-	GetWallets() ([]Wallet, error)
-	GetWallet(string) (*Wallet, error)
-	GetTransferFee(*Payments) (*Estimated, error)
-	Transfer(*Payments) (*TransferResponse, error)
+	GetWallets() ([]wallet.Wallet, error)
+	GetWallet(string) (*wallet.Wallet, error)
+	GetTransferFee(*wallet.Payments) (*wallet.Estimated, error)
+	Transfer(*wallet.Payments) (*wallet.TransferResponse, error)
 }
 
 type service struct {
@@ -26,7 +27,7 @@ func NewService(c *config.Configuration) *service {
 	return &service{c}
 }
 
-func (c *service) GetWallets() ([]Wallet, error) {
+func (c *service) GetWallets() ([]wallet.Wallet, error) {
 	response, err := http.Get(c.cfg.WalletsUrl)
 	if err != nil {
 		return nil, err
@@ -43,12 +44,12 @@ func (c *service) GetWallets() ([]Wallet, error) {
 	}
 
 	if response.StatusCode != http.StatusOK {
-		var errorStruct *Error
+		var errorStruct *wallet.Error
 		_ = json.Unmarshal(body, &errorStruct)
 		return nil, errors.New(errorStruct.Message)
 	}
 
-	var wallets []Wallet
+	var wallets []wallet.Wallet
 
 	err = json.Unmarshal(body, &wallets)
 	if err != nil {
@@ -59,7 +60,7 @@ func (c *service) GetWallets() ([]Wallet, error) {
 
 }
 
-func (c *service) GetWallet(walletId string) (*Wallet, error) {
+func (c *service) GetWallet(walletId string) (*wallet.Wallet, error) {
 
 	response, err := http.Get(c.cfg.WalletsUrl + "/" + walletId)
 	if err != nil {
@@ -77,23 +78,23 @@ func (c *service) GetWallet(walletId string) (*Wallet, error) {
 	}
 
 	if response.StatusCode != http.StatusOK {
-		var errorStruct *Error
+		var errorStruct *wallet.Error
 		_ = json.Unmarshal(body, &errorStruct)
 		return nil, errors.New(errorStruct.Message)
 	}
 
-	var wallet *Wallet
+	var w *wallet.Wallet
 
-	err = json.Unmarshal(body, &wallet)
+	err = json.Unmarshal(body, &w)
 	if err != nil {
 		return nil, err
 	}
 
-	return wallet, err
+	return w, err
 
 }
 
-func (c *service) GetTransferFee(payments *Payments) (*Estimated, error) {
+func (c *service) GetTransferFee(payments *wallet.Payments) (*wallet.Estimated, error) {
 	requestBody, err := json.Marshal(payments)
 
 	if err != nil {
@@ -116,12 +117,12 @@ func (c *service) GetTransferFee(payments *Payments) (*Estimated, error) {
 	}
 
 	if !(response.StatusCode == http.StatusOK || response.StatusCode == http.StatusAccepted) {
-		var errorStruct *Error
+		var errorStruct *wallet.Error
 		_ = json.Unmarshal(body, &errorStruct)
 		return nil, errors.New(errorStruct.Message)
 	}
 
-	var est *Estimated
+	var est *wallet.Estimated
 
 	err = json.Unmarshal(body, &est)
 	if err != nil {
@@ -131,7 +132,7 @@ func (c *service) GetTransferFee(payments *Payments) (*Estimated, error) {
 	return est, nil
 }
 
-func (c *service) Transfer(payments *Payments) (*TransferResponse, error) {
+func (c *service) Transfer(payments *wallet.Payments) (*wallet.TransferResponse, error) {
 	requestBody, err := json.Marshal(payments)
 
 	if err != nil {
@@ -154,12 +155,12 @@ func (c *service) Transfer(payments *Payments) (*TransferResponse, error) {
 	}
 
 	if !(response.StatusCode == http.StatusOK || response.StatusCode == http.StatusAccepted) {
-		var errorStruct *Error
+		var errorStruct *wallet.Error
 		_ = json.Unmarshal(body, &errorStruct)
 		return nil, errors.New(errorStruct.Message)
 	}
 
-	var resp *TransferResponse
+	var resp *wallet.TransferResponse
 
 	err = json.Unmarshal(body, &resp)
 	if err != nil {

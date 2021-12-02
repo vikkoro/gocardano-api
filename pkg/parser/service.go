@@ -4,8 +4,8 @@ import (
 	"encoding/csv"
 	"errors"
 	"fmt"
-	"github.com/vikkoro/gocardano-api/pkg/cardano"
 	"github.com/vikkoro/gocardano-api/pkg/config"
+	"github.com/vikkoro/gocardano-api/pkg/wallet"
 	"io"
 	"math"
 	"strconv"
@@ -14,7 +14,7 @@ import (
 
 // Service interface used to list the strings
 type Service interface {
-	ParsePayments(string) ([]cardano.Payment, uint64, error)
+	ParsePayments(string) ([]wallet.Payment, uint64, error)
 }
 
 type service struct {
@@ -27,11 +27,11 @@ func NewService(cfg *config.Configuration) *service {
 }
 
 // Parse SCV file into array of Payments
-func (s *service) ParsePayments(cvsString string) ([]cardano.Payment, uint64, error) {
+func (s *service) ParsePayments(cvsString string) ([]wallet.Payment, uint64, error) {
 
 	csvReader := csv.NewReader(strings.NewReader(cvsString))
 
-	var paymentsArray []cardano.Payment
+	var paymentsArray []wallet.Payment
 
 	// We stockpile all transfers amounts here
 	var totalAmountLovelace uint64
@@ -69,9 +69,9 @@ func (s *service) ParsePayments(cvsString string) ([]cardano.Payment, uint64, er
 		// Add up transfers amounts
 		totalAmountLovelace += amountLovelace
 
-		paymentsArray = append(paymentsArray, cardano.Payment{
+		paymentsArray = append(paymentsArray, wallet.Payment{
 			Address: rec[0],
-			Amount: cardano.Amount{
+			Amount: wallet.Amount{
 				Quantity: float64(amountLovelace),
 				Unit:     "lovelace",
 			},

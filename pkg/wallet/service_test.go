@@ -8,30 +8,30 @@ import (
 
 var cfg *config.Configuration
 
-var payments []cardano.Payment
+var payments []Payment
 
 func setUp() {
 	cfg = config.NewConfig("../../conf.json", "../../.env")
 
-	payments = append(payments, cardano.Payment{
+	payments = append(payments, Payment{
 		Address: "addr_test1vz3vh7nagum5lf66ej873wur740qm32ek536gqa2wl0n24crf4ry5",
-		Amount: cardano.Amount{
+		Amount: Amount{
 			Quantity: 2000000,
 			Unit:     "lovelace",
 		},
 	})
 
-	payments = append(payments, cardano.Payment{
+	payments = append(payments, Payment{
 		Address: "addr_test1vqn70eqljagvahj5cmnrprrywuflu5u9k6zum75c9qdqvgcz44msn",
-		Amount: cardano.Amount{
+		Amount: Amount{
 			Quantity: 1500000,
 			Unit:     "lovelace",
 		},
 	})
 
-	payments = append(payments, cardano.Payment{
+	payments = append(payments, Payment{
 		Address: "addr_test1vpcsfa78jy5qwr40kzpr2s3ky7ga68al0qcsxgd9rkwnrecjvehy7",
-		Amount: cardano.Amount{
+		Amount: Amount{
 			Quantity: 2500000,
 			Unit:     "lovelace",
 		},

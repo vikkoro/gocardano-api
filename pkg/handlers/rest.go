@@ -3,8 +3,8 @@ package handlers
 import (
 	"bytes"
 	"github.com/gin-gonic/gin"
-	"github.com/vikkoro/gocardano-api/pkg/cardano"
 	"github.com/vikkoro/gocardano-api/pkg/config"
+	"github.com/vikkoro/gocardano-api/pkg/wallet"
 	"html/template"
 	"io"
 	"log"
@@ -13,10 +13,10 @@ import (
 )
 
 type Wallet interface {
-	GetWallets() ([]cardano.Wallet, error)
-	GetWallet(string) (*cardano.Wallet, error)
+	GetWallets() ([]wallet.Wallet, error)
+	GetWallet(string) (*wallet.Wallet, error)
 	//GetTransferFee(cardano.Payments) (*cardano.Estimated, error)
-	Transfer([]cardano.Payment, uint64) (*cardano.TransferResponse, error)
+	Transfer([]wallet.Payment, uint64) (*wallet.TransferResponse, error)
 }
 
 type Files interface {
@@ -25,7 +25,7 @@ type Files interface {
 }
 
 type Parser interface {
-	ParsePayments(string) ([]cardano.Payment, uint64, error)
+	ParsePayments(string) ([]wallet.Payment, uint64, error)
 }
 
 func NewRestService(_c *config.Configuration, _w Wallet, _p Parser, _f Files) {

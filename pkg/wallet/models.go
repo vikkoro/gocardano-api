@@ -1,4 +1,4 @@
-package cardano
+package wallet
 
 type Error struct {
 	Code    uint64 `json:"code"`

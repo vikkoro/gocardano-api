@@ -2,25 +2,24 @@ package wallet
 
 import (
 	"errors"
-	"github.com/vikkoro/gocardano-api/pkg/cardano"
 	"github.com/vikkoro/gocardano-api/pkg/config"
 	"log"
 )
 
 // Service interface used to list the strings
 type Cardano interface {
-	GetWallets() ([]cardano.Wallet, error)
-	GetWallet(string) (*cardano.Wallet, error)
-	GetTransferFee(*cardano.Payments) (*cardano.Estimated, error)
-	Transfer(*cardano.Payments) (*cardano.TransferResponse, error)
+	GetWallets() ([]Wallet, error)
+	GetWallet(string) (*Wallet, error)
+	GetTransferFee(*Payments) (*Estimated, error)
+	Transfer(*Payments) (*TransferResponse, error)
 }
 
 // Service interface used to list the strings
 type Service interface {
-	GetWallets() ([]cardano.Wallet, error)
-	GetWallet(string) (*cardano.Wallet, error)
+	GetWallets() ([]Wallet, error)
+	GetWallet(string) (*Wallet, error)
 	//GetTransferFee(cardano.Payments) (*cardano.Estimated, error)
-	Transfer([]cardano.Payment, uint64) (*cardano.TransferResponse, error)
+	Transfer([]Payment, uint64) (*TransferResponse, error)
 }
 
 type service struct {
@@ -34,7 +33,7 @@ func NewService(_cfg *config.Configuration, _c Cardano) *service {
 }
 
 // GetWallets returns the list of the Wallets registered.
-func (s *service) GetWallets() ([]cardano.Wallet, error) {
+func (s *service) GetWallets() ([]Wallet, error) {
 	sl, err := s.c.GetWallets()
 	if err != nil {
 		log.Printf("WALLET ERROR: %q", err.Error())
@@ -45,7 +44,7 @@ func (s *service) GetWallets() ([]cardano.Wallet, error) {
 }
 
 // GetWallet returns an Wallet filtered by ID if the Wallet doesn't exist returns null.
-func (s *service) GetWallet(id string) (*cardano.Wallet, error) {
+func (s *service) GetWallet(id string) (*Wallet, error) {
 	st, err := s.c.GetWallet(id)
 	if err != nil {
 		log.Printf("WALLET ERROR: %q", err.Error())
@@ -56,13 +55,13 @@ func (s *service) GetWallet(id string) (*cardano.Wallet, error) {
 }
 
 // Transfer funds collected in Payment array
-func (s *service) Transfer(pp []cardano.Payment, totalAmount uint64) (*cardano.TransferResponse, error) {
+func (s *service) Transfer(pp []Payment, totalAmount uint64) (*TransferResponse, error) {
 
 	// Structure to check fees and send transfers
-	payments := &cardano.Payments{
+	payments := &Payments{
 		Passphrase: s.cfg.Passphrase,
 		Payments:   pp,
-		TimeToLive: cardano.Amount{
+		TimeToLive: Amount{
 			Quantity: 500,
 			Unit:     "second",
 		},
